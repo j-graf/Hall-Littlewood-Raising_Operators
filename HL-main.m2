@@ -48,6 +48,9 @@ TOb = f -> (
     qTObMap f
     )
 
+R1 == S1 := (f,g) -> (f == TOq g)
+S1 == R1 := (f,g) -> (g == f)
+
 --involution q_i <-> b_i
 omega = f -> (
     qTObOmega := map(ring b_1,ring q_1,toList(largestIndex:0)|(for i from 0 to largestIndex list b_i));
