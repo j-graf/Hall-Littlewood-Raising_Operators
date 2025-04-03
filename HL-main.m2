@@ -9,7 +9,7 @@ S1 = F1[b_(-largestIndex)..b_(largestIndex)]/(ideal(join({b_0-1},for k from -lar
 
 protect symbol q
 protect symbol b
-protect symbol F
+protect symbol F1
 protect symbol R1
 protect symbol S1
 protect symbol largestIndex
