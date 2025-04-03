@@ -5,7 +5,7 @@ Computes Hall-Littlewood functions with raising operators
 
 ## Hall-Littlewood Computations
 
-1. Verify $Q_\lambda(A;0)=B{\lambda'}(A;0)$, where $\lambda=(4,2,1)$:
+1. Verify $Q_\lambda(A;0)=B_{\lambda'}(A;0)$, where $\lambda=(4,2,1)$:
 ```
 lam = {4,2,1}
 TOb sub(Q lam,t=>0) == sub(B conj lam,t=>0)
