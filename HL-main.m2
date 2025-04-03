@@ -1,5 +1,6 @@
 --
 
+
 restart
 largestIndex = 30 --at most ~30
 F1 = QQ[t]
@@ -45,6 +46,26 @@ TOb = f -> (
     if (ring f) === (ring b_1) then return(f);
     if (ring f) === ZZ or (ring f) === QQ or (ring f) === (ring (5*t)) or (ring f) === (ring (t/2)) then return(sub(f,ring b_1));
     qTObMap f
+    )
+
+--involution q_i <-> b_i
+omega = f -> (
+    qTObOmega := map(ring b_1,ring q_1,toList(largestIndex:0)|(for i from 0 to largestIndex list b_i));
+    bTOqOmega := map(ring q_1,ring b_1,toList(largestIndex:0)|(for i from 0 to largestIndex list q_i));
+    
+    if (ring f) === (ring q_1) then (
+        return qTObOmega(f);
+        );
+    if (ring f) === (ring b_1) then (
+        return bTOqOmega(f);
+        );
+    
+    return f;
+    )
+
+conj = lam -> (
+    if lam != rsort lam then error "can't take conjugate of a composition";
+    for i from 1 to max lam list (number(lam,thePart -> thePart >= i))
     )
 
 ---------- compute Q_lambda and B_lambda
@@ -109,4 +130,23 @@ Q = lam -> (
         );
     
     sum for theTerm in ansList list ((theTerm#1)*qlam(theTerm#0))
+    )
+
+B = lam -> (
+    ansList := {(lam,1)};
+    
+    for jAnti from 0 to #lam-1 do (
+        j := #lam-jAnti-1;
+        for iAnti from jAnti+1 to #lam-1 do (
+            i := #lam-iAnti-1;
+            
+            for theTerm in ansList do (
+                for n from 1 to tailSum(theTerm#0,j) do (
+                    ansList = append(ansList,(Rijn(i,j,n,theTerm#0),(theTerm#1)*(t^n-t^(n-1))));
+                    );
+                );
+            );
+        );
+    
+    sum for theTerm in ansList list ((theTerm#1)*blam(theTerm#0))
     )
